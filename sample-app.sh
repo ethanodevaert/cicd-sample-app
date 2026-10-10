@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
+rm -rf tempdir
 mkdir tempdir
 mkdir tempdir/templates
 mkdir tempdir/static
@@ -21,5 +22,6 @@ _EOF_
 
 cd tempdir || exit
 docker build -t sampleapp .
+docker rm -f samplerunning 2>/dev/null || true
 docker run -t -d -p 5050:5050 --name samplerunning sampleapp
 docker ps -a 
